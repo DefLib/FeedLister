@@ -138,7 +138,7 @@ namespace FeedLister
 
         private void Menu_Setting_Click(object sender, RoutedEventArgs e)
         {
-            // new SettingView().Show();
+            new SettingView().Show();
         }
 
         private void Menu_exit_Click(object sender, RoutedEventArgs e)

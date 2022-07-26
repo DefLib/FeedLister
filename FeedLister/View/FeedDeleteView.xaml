@@ -18,30 +18,8 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Select Feed Site !!" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2">
-            <StackPanel Name="ChannelList">
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-                <local:FeedCard/>
-            </StackPanel>
+            <WrapPanel Name="ChannelList" HorizontalAlignment="Center" VerticalAlignment="Center">
+            </WrapPanel>
         </ScrollViewer>
         <Button Name="Cancel" Grid.Row="2" Grid.Column="0" Content="Cancel" Margin="30,20,30,20" Click="Cancel_Click" />
         <Button Name="Delete" Grid.Row="2" Grid.Column="1" Content="Delete" Margin="30,20,30,20" Click="Delete_Click" />
