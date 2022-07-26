@@ -74,6 +74,13 @@ namespace FeedLister
             SetStatusMessage("Updated");
         }
 
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState != MouseButtonState.Pressed) return;
+
+            this.DragMove();
+        }
+
         private void FeedList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Switch to FeedDetails
@@ -90,26 +97,13 @@ namespace FeedLister
             FeedList.Opacity = 0.25d;
             FeedList.IsEnabled = false;
 
+            SetStatusMessage("Detail");
+
             FeedDetails.IsEnabled = true;
             FeedDetails.Visibility = Visibility.Visible;
         }
 
         private void FeedDetails_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            // Switch to FeedList
-            infoMessage.Visibility = Visibility.Hidden;
-            infoMessage.IsEnabled = false;
-
-            FeedDetails.IsEnabled = false;
-            FeedDetails.Visibility = Visibility.Hidden;
-
-            Details.setFeedInfo("" + "", "", "", null);
-
-            FeedList.Opacity = 1.0d;
-            FeedList.IsEnabled = true;
-        }
-
-        private void FeedDetails_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             int id = int.Parse(Details.Name.Replace("id_", ""));
             string url = new EntryControll().SearchEntry(id).article_link;
@@ -120,20 +114,37 @@ namespace FeedLister
             }
             catch (Win32Exception nobrowser)
             {
-                MessageBox.Show(nobrowser.Message + "\n" + "Selected url is " + url,"noBlowser");
+                MessageBox.Show(nobrowser.Message + "\n" + "Selected url is " + url, "noBlowser");
             }
             catch (Exception other)
             {
-                MessageBox.Show(other.Message,"unknown Exp");
+                MessageBox.Show(other.Message, "unknown Exp");
             }
             finally
             {
-                if(MessageBox.Show("Copy URL " + url, "Copy?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Copy URL " + url, "Copy?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     Clipboard.SetText(url);
                     MessageBox.Show("Copy is Sucsess !!", "Copyed");
-                } 
+                }
             }
+        }
+
+        private void FeedDetails_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Switch to FeedList
+            infoMessage.Visibility = Visibility.Hidden;
+            infoMessage.IsEnabled = false;
+
+            FeedDetails.IsEnabled = false;
+            FeedDetails.Visibility = Visibility.Hidden;
+
+            Details.setFeedInfo("" + "", "", "", null);
+
+            SetStatusMessage("List");
+
+            FeedList.Opacity = 1.0d;
+            FeedList.IsEnabled = true;
         }
 
         private void Menu_Setting_Click(object sender, RoutedEventArgs e)
@@ -165,14 +176,20 @@ namespace FeedLister
             IsEnabled = true;
         }
 
-        private void SetStatusMessage(string msg)
+        private void SetStatusMessage(string status)
         {
-            tb_Now_Status.Text = "Status:" + msg;
+            tb_Now_Status.Text = "Status:" + status;
+        }
+
+        private void SetMessage(string msg)
+        {
+            tb_Now_Status.Text = msg;
         }
 
         private void SetUpdateTime(string msg)
         {
             tb_Last_Update_Time.Text = "Last Update:" + msg;
         }
+
     }
 }

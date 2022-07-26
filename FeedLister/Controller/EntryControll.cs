@@ -34,7 +34,7 @@ namespace FeedLister.Controller
                 try
                 {
                     connection.Open();
-                    command.CommandText = @"select * from entry";
+                    command.CommandText = @"select * from entry order by id desc";
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read() == true)
@@ -127,6 +127,23 @@ namespace FeedLister.Controller
                         Console.WriteLine(e.Message);
                         throw;
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Downloaderからの呼び出し対応用
+        /// </summary>
+        /// <param name="lfd"></param>
+        internal void AddEntry(HashSet<FeedData> lfd)
+        {
+            foreach (FeedData fd in lfd)
+            {
+                int channel_id = new ChannelControll().SearchChannel(fd.ch.title).id;
+                fd.ch.id = channel_id;
+                foreach(Entry en in fd.Len)
+                {
+                    AddEntry(en);
                 }
             }
         }

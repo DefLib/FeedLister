@@ -18,11 +18,8 @@ namespace FeedLister
 
         private void ChannelAdd(string URL)
         {
-            Channel ch = RSS2.ExtractChennelContent(FeedDownloader.GetxmlDoc(URL),URL);
-            ChannelControll cc = new ChannelControll();
-            if (!cc.GETChannel().Contains(ch))
+            if (new ChannelControll().AddChannel(URL))
             {
-                cc.AddChannel(ch);
                 MessageBox.Show("登録しました");
                 Close();
             }

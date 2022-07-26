@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeedLister.FeedDecoder;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
@@ -25,7 +26,7 @@ namespace FeedLister.Controller
             ConnectionString = builder.ToString();
         }
 
-        public Channel SearchChannel(int id) // 配信サービスの名前からidを検索
+        public Channel SearchChannel(int id)
         {
             Channel c = null;
             using (var connection = new SQLiteConnection(ConnectionString))
@@ -40,6 +41,36 @@ namespace FeedLister.Controller
                         while (reader.Read() == true)
                         {
                             string title = reader["title"].ToString();
+                            string link = reader["link"].ToString();
+                            string feedLink = reader["feedLink"].ToString();
+                            string description = reader["description"].ToString();
+                            c = new Channel(id, title, link, feedLink, description);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return c;
+        }
+
+        public Channel SearchChannel(string title) // 配信サービスの名前からidを検索
+        {
+            Channel c = null;
+            using (var connection = new SQLiteConnection(ConnectionString))
+            using (var command = connection.CreateCommand())
+            {
+                try
+                {
+                    connection.Open();
+                    command.CommandText = @"select * from channel where title='" + title + "'";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read() == true)
+                        {
+                            int id = int.Parse(reader["id"].ToString());
                             string link = reader["link"].ToString();
                             string feedLink = reader["feedLink"].ToString();
                             string description = reader["description"].ToString();
@@ -122,7 +153,7 @@ namespace FeedLister.Controller
             return list;
         }
 
-        public void AddChannel(Channel ch) // 新しい配信サービスの情報を追加する
+        private void AddChannel(Channel ch) // 新しい配信サービスの情報を追加する
         {
             string title = ch.title;
             string link = ch.link;
@@ -147,6 +178,38 @@ namespace FeedLister.Controller
                     connection.Close();
                 }
             }
+        }
+
+        internal bool AddChannel(string URL)
+        {
+            Channel ch = RSS2.ExtractChennelContent(FeedDownloader.GetxmlDoc(URL), URL);
+
+            string title = ch.title;
+            string link = ch.link;
+            string feedLink = ch.feedLink;
+            string description = ch.description;
+
+            using (var connection = new SQLiteConnection(ConnectionString))
+            using (var command = connection.CreateCommand())
+            {
+                try
+                {
+                    connection.Open();
+                    command.CommandText = @"insert into channel (title,link,feedLink,description) values ('" + title + "','" + link + "','" + feedLink + "','" + description + "')";
+                    command.ExecuteNonQuery();
+                }
+                catch (SQLiteException e)
+                {
+                    Console.WriteLine(e.Message);
+                    return false;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return true;
         }
 
         public void DeleteChannel(int id) // 配信サービス情報を削除する

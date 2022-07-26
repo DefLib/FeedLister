@@ -41,7 +41,7 @@ namespace FeedLister.Controller
                 DownLoadFeeds(URL);
             }
 
-            DBInput();
+            new EntryControll().AddEntry(Lfd);
 
             return;
         }
@@ -91,21 +91,25 @@ namespace FeedLister.Controller
 
             Console.WriteLine("Download is Complete!!");
 
+            FeedData fd = null;
             int cf = CheckFeeds(xmlDoc);
             switch (cf)
             {
+                // This Case Is Not Setting channel_id;
                 case 0:
-                    Lfd.Add(RSS1.ExtractALLContent(xmlDoc,URL));
+                    fd = RSS1.ExtractALLContent(xmlDoc, URL);
                     break;
 
                 case 1:
-                    Lfd.Add(RSS2.ExtractALLContent(xmlDoc,URL));
+                    fd = RSS2.ExtractALLContent(xmlDoc, URL);
                     break;
 
                 case 2:
-                    Lfd.Add(Atom.ExtractALLContent(xmlDoc,URL));
+                    fd = Atom.ExtractALLContent(xmlDoc, URL);
                     break;
             }
+
+            Lfd.Add(fd);
         }
 
         /// <summary>
@@ -177,17 +181,6 @@ namespace FeedLister.Controller
             else
             {
                 return -999;
-            }
-        }
-
-        private void DBInput()
-        {
-            foreach(FeedData fd in Lfd)
-            {
-                foreach (Entry en in fd.Len)
-                {
-                    new EntryControll().AddEntry(en);
-                }
             }
         }
 

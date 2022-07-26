@@ -5,14 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FeedLister"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="420" MinHeight="800" MinWidth="420">
+        WindowStyle="None"
+        Background="Transparent" AllowsTransparency="True"
+        Title="MainWindow" 
+        Height="800" Width="420" MinHeight="800" MinWidth="420"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Grid x:Name="Root" Background="#44737373">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="18"/>
         </Grid.RowDefinitions>
-        <ToolBar Grid.Row="0" Height="Auto" Grid.ColumnSpan="3">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Stretch" FlowDirection="RightToLeft">
+            <StackPanel.Background>
+                <SolidColorBrush Color="#FFF0F0F0"/>
+            </StackPanel.Background>
+            <Button Name="Exit" Width="60" Margin="5,2,5,2" Click="Menu_exit_Click" Cursor="Hand"/>
+            <Button Name="Min" Width="60" Margin="5,2,5,2"/>
+        </StackPanel>
+        <ToolBar Grid.Row="1" Height="Auto" Grid.ColumnSpan="3" Margin="1,0,1,0">
             <Menu>
                 <MenuItem Name="Menu_file" Header="file">
                     <MenuItem Name="Menu_Setting" Header="Setting" Click="Menu_Setting_Click"/>
@@ -25,24 +37,24 @@
                 <MenuItem Name="Menu_Update" Header="Update" Click="Menu_Update_Click"/>
             </Menu>
         </ToolBar>
-        <Grid x:Name="infoMessage" Grid.Row="1" Visibility="Hidden" IsEnabled="false" Grid.ColumnSpan="3">
+        <Grid x:Name="infoMessage" Grid.Row="2" Visibility="Hidden" IsEnabled="false" Grid.ColumnSpan="3">
             <TextBlock Text="まだ何も追加されていません！" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
-        <Grid Grid.Row="1" Visibility="Visible" IsEnabled="True" Grid.ColumnSpan="3">
-            <ScrollViewer>
+        <Grid Grid.Row="2" Visibility="Visible" IsEnabled="True" Grid.ColumnSpan="3">
+            <ScrollViewer Margin="1,0,1,0">
                 <WrapPanel x:Name="FeedList" PreviewMouseLeftButtonDown="FeedList_PreviewMouseLeftButtonDown" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                    
+
                 </WrapPanel>
             </ScrollViewer>
         </Grid>
-        <Grid x:Name="FeedDetails" Grid.Row="1" Visibility="Hidden" IsEnabled="False" PreviewMouseLeftButtonDown="FeedDetails_PreviewMouseLeftButtonDown" PreviewMouseRightButtonDown="FeedDetails_PreviewMouseRightButtonDown" Margin="30,30,30,30" Grid.ColumnSpan="3">
+        <Grid x:Name="FeedDetails" Grid.Row="2" Visibility="Hidden" IsEnabled="False" PreviewMouseLeftButtonDown="FeedDetails_PreviewMouseLeftButtonDown" PreviewMouseRightButtonDown="FeedDetails_PreviewMouseRightButtonDown" Margin="30,30,30,30" Grid.ColumnSpan="3">
             <local:FeedInfo x:Name="Details">
                 <local:FeedInfo.Background>
                     <SolidColorBrush Color="#FFFFF4BF"/>
                 </local:FeedInfo.Background>
             </local:FeedInfo>
         </Grid>
-        <Grid Grid.Row="2" Margin="2,0,2,0" Grid.RowSpan="2">
+        <Grid Grid.Row="3" Margin="2,0,2,0" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
