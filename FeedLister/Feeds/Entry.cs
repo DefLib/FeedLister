@@ -16,7 +16,7 @@
         this.image_link = image_link;
         this.created_at = created_at;
     }
-    public Entry(int channel_id,string title, string description, string article_link, string image_link, string created_at)
+    public Entry(int channel_id, string title, string description, string article_link, string image_link, string created_at)
     {
         this.channel_ID = channel_id;
         this.title = title;

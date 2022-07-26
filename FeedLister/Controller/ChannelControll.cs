@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 
-namespace FeedLister.Code.Controller
+namespace FeedLister.Controller
 {
     class ChannelControll : WindowsGadgetDB
     {
         private static readonly string FileName = @"WindowsGadget.db";
         private readonly string ConnectionString = null;
-        private readonly string DataBaseFilePath = System.AppDomain.CurrentDomain.BaseDirectory+FileName;
+        private readonly string DataBaseFilePath = System.AppDomain.CurrentDomain.BaseDirectory + FileName;
 
         public ChannelControll() // コネクション作成
         {
@@ -25,65 +25,68 @@ namespace FeedLister.Code.Controller
             ConnectionString = builder.ToString();
         }
 
-        public Channel SearchChannel(string title) // 配信サービスの名前からidを検索
+        public Channel SearchChannel(int id) // 配信サービスの名前からidを検索
         {
             Channel c = null;
             using (var connection = new SQLiteConnection(ConnectionString))
-                using (var command = connection.CreateCommand())
+            using (var command = connection.CreateCommand())
+            {
+                try
                 {
-                    try
+                    connection.Open();
+                    command.CommandText = @"select * from channel where id='" + id + "'";
+                    using (var reader = command.ExecuteReader())
                     {
-                        connection.Open();
-                        command.CommandText = @"select * from channel where title='"+ title +"'";
-                        using (var reader = command.ExecuteReader())
+                        while (reader.Read() == true)
                         {
-                            while (reader.Read() == true)
-                            {
-                                int id = Int32.Parse(reader["id"].ToString());
-                                string link = reader["link"].ToString();
-                                string description = reader["description"].ToString();
-                                c = new Channel(id,title,link,description);
-                            }
+                            string title = reader["title"].ToString();
+                            string link = reader["link"].ToString();
+                            string feedLink = reader["feedLink"].ToString();
+                            string description = reader["description"].ToString();
+                            c = new Channel(id, title, link, feedLink, description);
                         }
                     }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
             return c;
         }
-        
+
         public List<Channel> GETChannel() // 配信サービス一覧を表示
         {
             var list = new List<Channel>();
             using (var connection = new SQLiteConnection(ConnectionString))
-                using (var command = connection.CreateCommand())
+            using (var command = connection.CreateCommand())
+            {
+                try
                 {
-                    try
+                    connection.Open();
+                    command.CommandText = @"select * from channel";
+                    using (var reader = command.ExecuteReader())
                     {
-                        connection.Open();
-                        command.CommandText = @"select * from channel";
-                        using (var reader = command.ExecuteReader())
+                        while (reader.Read() == true)
                         {
-                            while (reader.Read()==true)
-                            {
-                                int id = Int32.Parse(reader["id"].ToString());
-                                string title = reader["title"].ToString();
-                                string link = reader["link"].ToString();
-                                string description = reader["description"].ToString();
-                                list.Add(new Channel(id,title, link, description));
-                            }
+                            int id = Int32.Parse(reader["id"].ToString());
+                            string title = reader["title"].ToString();
+                            string link = reader["link"].ToString();
+                            string feedLink = reader["feedLink"].ToString();
+                            string description = reader["description"].ToString();
+                            list.Add(new Channel(id, title, link, feedLink, description));
                         }
-                    }catch(Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                        throw;
                     }
                 }
-                return list;
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
+                }
+            }
+            return list;
         }
-        
+
         public List<string> GetURLs()
         {
             var list = new List<string>();
@@ -93,18 +96,18 @@ namespace FeedLister.Code.Controller
                 try
                 {
                     connection.Open();
-                    command.CommandText = @"select link from channel";
+                    command.CommandText = @"select feedLink from channel";
                     using (var reader = command.ExecuteReader())
                     {
                         if (!reader.HasRows)
                         {
-                            
+
                         }
                         else
                         {
                             foreach (var item in reader)
                             {
-                                string link = reader["link"].ToString();
+                                string link = reader["feedLink"].ToString();
                                 list.Add(link);
                             }
                         }
@@ -123,7 +126,8 @@ namespace FeedLister.Code.Controller
         {
             string title = ch.title;
             string link = ch.link;
-            string description= ch.description;
+            string feedLink = ch.feedLink;
+            string description = ch.description;
 
             using (var connection = new SQLiteConnection(ConnectionString))
             using (var command = connection.CreateCommand())
@@ -131,7 +135,7 @@ namespace FeedLister.Code.Controller
                 try
                 {
                     connection.Open();
-                    command.CommandText = @"insert into channel (title,link,description) values ('"+ title +"','"+ link +"','"+ description +"')";
+                    command.CommandText = @"insert into channel (title,link,feedLink,description) values ('" + title + "','" + link + "','" + feedLink + "','" + description + "')";
                     command.ExecuteNonQuery();
                 }
                 catch (SQLiteException e)
@@ -148,21 +152,21 @@ namespace FeedLister.Code.Controller
         public void DeleteChannel(int id) // 配信サービス情報を削除する
         {
             using (var connection = new SQLiteConnection(ConnectionString))
-                using (var command = connection.CreateCommand())
+            using (var command = connection.CreateCommand())
+            {
+                try
                 {
-                    try
-                    {
-                        connection.Open();
-                        command.CommandText = @"delete from channel where id=@id";
-                        command.Parameters.Add(new SQLiteParameter("@id",id));
-                        command.ExecuteNonQuery();
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                        throw;
-                    }
+                    connection.Open();
+                    command.CommandText = @"delete from channel where id=@id";
+                    command.Parameters.Add(new SQLiteParameter("@id", id));
+                    command.ExecuteNonQuery();
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
+                }
+            }
 
         }
     }

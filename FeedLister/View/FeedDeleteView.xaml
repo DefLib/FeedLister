@@ -19,34 +19,28 @@
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Select Feed Site !!" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2">
             <StackPanel Name="ChannelList">
-                <RadioButton  Margin="10,10,10,10" Width="350" Height="150">
-                    <RadioButton.Content>
-                        <local:ChannelCard Height="150" Width="320">
-                            
-                        </local:ChannelCard>
-                    </RadioButton.Content>
-                </RadioButton>
-                <RadioButton  Margin="10,10,10,10" Width="350" Height="150">
-                    <RadioButton.Content>
-                        <local:ChannelCard Height="150" Width="320">
-
-                        </local:ChannelCard>
-                    </RadioButton.Content>
-                </RadioButton>
-                <RadioButton  Margin="10,10,10,10" Width="350" Height="150">
-                    <RadioButton.Content>
-                        <local:ChannelCard Height="150" Width="320">
-
-                        </local:ChannelCard>
-                    </RadioButton.Content>
-                </RadioButton>
-                <RadioButton  Margin="10,10,10,10" Width="350" Height="150">
-                    <RadioButton.Content>
-                        <local:ChannelCard Height="150" Width="320">
-
-                        </local:ChannelCard>
-                    </RadioButton.Content>
-                </RadioButton>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
+                <local:FeedCard/>
             </StackPanel>
         </ScrollViewer>
         <Button Name="Cancel" Grid.Row="2" Grid.Column="0" Content="Cancel" Margin="30,20,30,20" Click="Cancel_Click" />

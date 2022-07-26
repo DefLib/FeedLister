@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Insert Feed URL !!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <TextBlock Text="URL"/>
+            <TextBlock Text="URL" Margin="10,0,10,0"/>
             <TextBox Name="URL" Margin="30,0,30,0" />
         </StackPanel>
         <Button Name="cancel"  Content="Cancel" Grid.Row="2" Grid.Column="0" Margin="20,5,20,5" Click="cancel_Click"/>

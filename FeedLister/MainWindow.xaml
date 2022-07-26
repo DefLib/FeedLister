@@ -5,39 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FeedLister"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="450" MinWidth="450" MinHeight="800">
+        Title="MainWindow" Height="700" Width="400" MinHeight="700" MinWidth="400">
     <Grid x:Name="Root" Background="#44737373">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="100*"/>
+            <RowDefinition Height="18"/>
         </Grid.RowDefinitions>
-        <ToolBar Grid.Row="0">
+        <ToolBar Grid.Row="0" Height="Auto" Grid.ColumnSpan="3">
             <Menu>
                 <MenuItem Name="Menu_file" Header="file">
+                    <MenuItem Name="Menu_Setting" Header="Setting" Click="Menu_Setting_Click"/>
                     <MenuItem Name="Menu_exit" Header="exit" Click="Menu_exit_Click"/>
                 </MenuItem>
                 <MenuItem Header="Feed">
                     <MenuItem Name="Menu_add" Header="add" Click="Menu_add_Click"/>
                     <MenuItem Name="Menu_delete" Header="delete" Click="Menu_delete_Click"/>
                 </MenuItem>
+                <MenuItem Name="Menu_Update" Header="Update" Click="Menu_Update_Click"/>
             </Menu>
         </ToolBar>
-        <Grid x:Name="infoMessage" Grid.Row="1" Visibility="Hidden" IsEnabled="false">
+        <Grid x:Name="infoMessage" Grid.Row="1" Visibility="Hidden" IsEnabled="false" Grid.ColumnSpan="3">
             <TextBlock Text="まだ何も追加されていません！" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
-        <Grid Grid.Row="1" Visibility="Visible" IsEnabled="True">
+        <Grid Grid.Row="1" Visibility="Visible" IsEnabled="True" Grid.ColumnSpan="3">
             <ScrollViewer>
-                <StackPanel x:Name="FeedList" PreviewMouseLeftButtonDown="FeedList_PreviewMouseLeftButtonDown" >
-
-                </StackPanel>
+                <WrapPanel x:Name="FeedList" PreviewMouseLeftButtonDown="FeedList_PreviewMouseLeftButtonDown" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    
+                </WrapPanel>
             </ScrollViewer>
         </Grid>
-        <Grid x:Name="FeedDetails" Grid.Row="1" Visibility="Hidden" IsEnabled="False" PreviewMouseLeftButtonDown="FeedDetails_PreviewMouseLeftButtonDown" Margin="30,30,30,30">
-            <local:FeedInfo>
+        <Grid x:Name="FeedDetails" Grid.Row="1" Visibility="Hidden" IsEnabled="False" PreviewMouseLeftButtonDown="FeedDetails_PreviewMouseLeftButtonDown" PreviewMouseRightButtonDown="FeedDetails_PreviewMouseRightButtonDown" Margin="30,30,30,30" Grid.ColumnSpan="3">
+            <local:FeedInfo x:Name="Details">
                 <local:FeedInfo.Background>
                     <SolidColorBrush Color="#FFFFF4BF"/>
                 </local:FeedInfo.Background>
             </local:FeedInfo>
+        </Grid>
+        <Grid Grid.Row="2" Margin="2,0,2,0" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Name="tb_Last_Update_Time" Text="Last Update:" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <Border Width="1" Background="Black" HorizontalAlignment="Right">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="#FF646464"/>
+                </Border.BorderBrush>
+            </Border>
+            <TextBlock Name="tb_Now_Status" Text="Status:Not Controll" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" TextAlignment="Right"/>
         </Grid>
     </Grid>
 </Window>

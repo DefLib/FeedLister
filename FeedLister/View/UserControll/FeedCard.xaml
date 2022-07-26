@@ -5,20 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FeedLister"
              mc:Ignorable="d" 
-             Width="420" Height="160" MinWidth="420" MinHeight="160">
-    <Grid Background="#F8FFF4BF" Margin="10,5,10,5">
+             MinWidth="320" MinHeight="110">
+    <Grid Background="#F8FFF4BF" Margin="10,5,10,5" MaxWidth="400" MaxHeight="200">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="6*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBlock Name="title" Grid.Row="0" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-        <TextBlock Name="description" Grid.Row="1" Grid.ColumnSpan="1" TextWrapping="Wrap"/>
-        <TextBlock Name="link" Grid.Row="2" Grid.ColumnSpan="1"/>
-        <Image Name="image" Grid.Column="1" Grid.RowSpan="3"/>
+        <TextBlock Name="title" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontWeight="Bold" FontSize="16" TextWrapping="Wrap"/>
+        <TextBlock Name="description" Grid.Row="1" Grid.ColumnSpan="1" TextWrapping="Wrap" HorizontalAlignment="Stretch"/>
+        <TextBlock Name="create_at" Grid.Row="2" Grid.ColumnSpan="2" TextAlignment="Right"/>
+        <Image Name="image" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </UserControl>

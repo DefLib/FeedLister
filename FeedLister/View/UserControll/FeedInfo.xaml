@@ -12,9 +12,9 @@
             <RowDefinition Height="6*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Name="title" TextWrapping="WrapWithOverflow" FontSize="24" TextAlignment="Center" />
-        <TextBlock Grid.Row="1" Name="description" TextWrapping="Wrap" FontSize="16" />
-        <TextBlock Grid.Row="2" Name="link" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom" TextAlignment="Right" >
+        <TextBlock Grid.Row="0" Name="title" TextWrapping="WrapWithOverflow" FontSize="24" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="1" Name="description" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="2" Name="link" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" >
             <Hyperlink Name="hyperlink" />
         </TextBlock>
     </Grid>
