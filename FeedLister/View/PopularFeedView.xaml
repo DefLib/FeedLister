@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FeedLister.View"
         mc:Ignorable="d"
-        Title="PopularFeedView" Height="450" Width="800">
+        Title="PopularFeedView" Height="700" Width="400">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Select Feed Site !!" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2">
+            <WrapPanel Name="ChannelList" HorizontalAlignment="Center" VerticalAlignment="Center">
+            </WrapPanel>
+        </ScrollViewer>
+        <Button Name="Cancel" Grid.Row="2" Grid.Column="0" Content="Cancel" Margin="30,20,30,20" Click="Cancel_Click" />
+        <Button Name="Add" Grid.Row="2" Grid.Column="1" Content="Add" Margin="30,20,30,20" Click="Add_Click" />
     </Grid>
 </Window>
