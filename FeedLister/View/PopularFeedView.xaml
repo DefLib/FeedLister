@@ -21,7 +21,7 @@
             <WrapPanel Name="ChannelList" HorizontalAlignment="Center" VerticalAlignment="Center">
             </WrapPanel>
         </ScrollViewer>
-        <Button Name="Cancel" Grid.Row="2" Grid.Column="0" Content="Cancel" Margin="30,20,30,20" Click="Cancel_Click" />
-        <Button Name="Add" Grid.Row="2" Grid.Column="1" Content="Add" Margin="30,20,30,20" Click="Add_Click" />
+        <Button Name="Cancel" Grid.Row="2" Grid.Column="0" Content="Cancel" Margin="30,10,30,10" Click="Cancel_Click" />
+        <Button Name="Add" Grid.Row="2" Grid.Column="1" Content="Add" Margin="30,10,30,10" Click="Add_Click" />
     </Grid>
 </Window>
