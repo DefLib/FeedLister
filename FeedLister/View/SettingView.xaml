@@ -13,22 +13,20 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Margin="30,30,30,30">
-            <CheckBox Content="Enable TopMost" FontSize="16px" Margin="10,10,10,10" />
-            <CheckBox Content="Auto Update" FontSize="16px" Margin="10,10,10,10" />
+            <CheckBox Name="TopMost" Content="Enable TopMost" FontSize="16px" Margin="10,10,10,10" />
+            <CheckBox Name="AutoUpdate" Content="Auto Update" FontSize="16px" Margin="10,10,10,10" />
             <TextBlock Text="Opasity" FontSize="16px" Margin="10,10,10,10" />
             <Grid Margin="10,10,10,10" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
                     <ColumnDefinition Width="100*"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text=""/>
-                <Slider Grid.Column="1" TickPlacement="BottomRight" Margin="10">
+                <Slider Name="sl_NowStatus" Grid.Column="0" TickPlacement="BottomRight" Minimum="0.3" Maximum="1" LargeChange="0.1" >
                     <Slider.Foreground>
                         <SolidColorBrush Color="#FF0066CC"/>
                     </Slider.Foreground>
                 </Slider>
-                <TextBlock Grid.Column="2" Width="50" Text="" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+                <TextBlock Name="tb_NowStatus" Grid.Column="2" Width="50" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">

@@ -214,6 +214,7 @@ namespace FeedLister.Controller
 
         public void DeleteChannel(int id) // 配信サービス情報を削除する
         {
+            new EntryControll().DeleteChannel(id);
             using (var connection = new SQLiteConnection(ConnectionString))
             using (var command = connection.CreateCommand())
             {

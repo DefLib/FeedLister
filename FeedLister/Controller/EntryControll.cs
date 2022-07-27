@@ -80,7 +80,7 @@ namespace FeedLister.Controller
                             string image_link = reader["image_link"].ToString();
                             string create_at = reader["created_at"].ToString();
 
-                            en = new Entry(channel_id,title,description,article_link,image_link,create_at);
+                            en = new Entry(channel_id, title, description, article_link, image_link, create_at);
                         }
                     }
                 }
@@ -141,7 +141,7 @@ namespace FeedLister.Controller
             {
                 int channel_id = new ChannelControll().SearchChannel(fd.ch.title).id;
                 fd.ch.id = channel_id;
-                foreach(Entry en in fd.Len)
+                foreach (Entry en in fd.Len)
                 {
                     AddEntry(en);
                 }
@@ -159,6 +159,28 @@ namespace FeedLister.Controller
                         connection.Open();
                         command.CommandText = @"delete from entry where id=@id";
                         command.Parameters.Add(new SQLiteParameter("@id", id));
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public void DeleteChannel(int channel_id)
+        {
+            using (var connection = new SQLiteConnection(ConnectionString))
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    try
+                    {
+                        connection.Open();
+                        command.CommandText = @"delete from entry where channel_id=@channel_id";
+                        command.Parameters.Add(new SQLiteParameter("@channel_id", channel_id));
                         command.ExecuteNonQuery();
                     }
                     catch (Exception e)

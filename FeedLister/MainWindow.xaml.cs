@@ -54,6 +54,7 @@ namespace FeedLister
                     FeedCard fc = new FeedCard();
                     fc.SetCardContent(en.title, en.description, en.created_at);
                     fc.Name = "id_" + en.id.ToString();
+                    fc.Opacity = Properties.Settings.Default.DefOpacity;
                     FeedList.Children.Add(fc);
                 }
 
@@ -65,11 +66,15 @@ namespace FeedLister
 
                 Details.setFeedInfo("" + "", "", "", null);
 
-                FeedList.Opacity = 1.0d;
+                FeedList.Opacity = Properties.Settings.Default.DefOpacity;
                 FeedList.IsEnabled = true;
 
                 SetUpdateTime(DateTime.Now.ToString());
             }
+
+
+            Root.Opacity = Properties.Settings.Default.DefOpacity;
+            Topmost = Properties.Settings.Default.TopMost;
 
             SetStatusMessage("Updated");
         }
@@ -143,8 +148,13 @@ namespace FeedLister
 
             SetStatusMessage("List");
 
-            FeedList.Opacity = 1.0d;
+            FeedList.Opacity = Properties.Settings.Default.DefOpacity;
             FeedList.IsEnabled = true;
+        }
+
+        private void Min_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
 
         private void Menu_Setting_Click(object sender, RoutedEventArgs e)
@@ -160,6 +170,11 @@ namespace FeedLister
         private void Menu_add_Click(object sender, RoutedEventArgs e)
         {
             new FeedAdditionView().Show();
+        }
+
+        private void Menu_PupAdd_Click(object sender, RoutedEventArgs e)
+        {
+            new PopularFeedView().Show();
         }
 
         private void Menu_delete_Click(object sender, RoutedEventArgs e)
@@ -191,5 +206,9 @@ namespace FeedLister
             tb_Last_Update_Time.Text = "Last Update:" + msg;
         }
 
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            InitializeEntryData();
+        }
     }
 }

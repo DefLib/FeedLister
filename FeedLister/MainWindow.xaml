@@ -9,8 +9,9 @@
         Background="Transparent" AllowsTransparency="True"
         Title="MainWindow" 
         Height="800" Width="420" MinHeight="800" MinWidth="420"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown">
-    <Grid x:Name="Root" Background="#44737373">
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Activated="Window_Activated">
+    <Grid x:Name="Root" Background="#737373">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -21,8 +22,27 @@
             <StackPanel.Background>
                 <SolidColorBrush Color="#FFF0F0F0"/>
             </StackPanel.Background>
-            <Button Name="Exit" Width="60" Margin="5,2,5,2" Click="Menu_exit_Click" Cursor="Hand"/>
-            <Button Name="Min" Width="60" Margin="5,2,5,2"/>
+            <Button Name="Exit" Width="60" Margin="5,2,5,2" Click="Menu_exit_Click" Cursor="Hand">
+                <Button.Content>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <TextBlock Text="X"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+            <Button Name="Min" Width="60" Margin="5,2,5,2" Click="Min_Click" FontWeight="Bold">
+                <Button.Background>
+                    <SolidColorBrush Color="#FFC5CAE9"/>
+                </Button.Background>
+                <Button.Content>
+                    <Grid HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                        <TextBlock Text="_">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="Black"/>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
         </StackPanel>
         <ToolBar Grid.Row="1" Height="Auto" Grid.ColumnSpan="3" Margin="1,0,1,0">
             <Menu>
@@ -32,6 +52,7 @@
                 </MenuItem>
                 <MenuItem Header="Feed">
                     <MenuItem Name="Menu_add" Header="add" Click="Menu_add_Click"/>
+                    <MenuItem Name="Menu_PupAdd" Header="PopularFeed" Click="Menu_PupAdd_Click"/>
                     <MenuItem Name="Menu_delete" Header="delete" Click="Menu_delete_Click"/>
                 </MenuItem>
                 <MenuItem Name="Menu_Update" Header="Update" Click="Menu_Update_Click"/>
